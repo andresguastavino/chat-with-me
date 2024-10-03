@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { socket } from "../../components/socket";
+import { socket } from "../../utils/socket";
 
 export default function Room() {
   const [isConnected, setIsConnected] = useState(false);
