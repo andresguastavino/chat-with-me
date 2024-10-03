@@ -10,13 +10,15 @@ const app = next({ dev, hostname, port });
 const handler = app.getRequestHandler();
 
 app.prepare().then(() => {
-    console.log('heree')
   const httpServer = createServer(handler);
 
   const io = new Server(httpServer);
 
   io.on("connection", (socket) => {
-    // ...
+    socket.on('message', (message) => {
+      console.log('newmessage',message);
+      io.emit('message', message);
+    })
   });
 
   httpServer
