@@ -24,8 +24,8 @@ export default function RootLayout({ children }) {
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <div className="flex flex-wrap items-center justify-center w-screen h-screen font-[family-name:var(--font-geist-sans)]">
-          <div className="container w-3/4 h-3/4 md:1/2 lg:w-1/3 bg-slate-600 text-white shadow-xl shadow-black">
+        <div className="flex flex-wrap md:items-center justify-center w-screen h-screen font-[family-name:var(--font-geist-sans)]">
+          <div className="container overflow-hidden w-3/4 h-1/2 md:1/2 md:h-3/4 lg:w-1/3 mt-24 md:mt-0 bg-slate-600 text-white shadow-xl shadow-black">
             {children}
           </div>
         </div>
