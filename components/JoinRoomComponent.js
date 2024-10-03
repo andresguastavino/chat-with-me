@@ -4,42 +4,31 @@ import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { Button } from './Button';
 
-export const HomeComponent = () => {
+export const JoinRoomComponent = () => {
 
   const router = useRouter()
 
-  const [username, setUsername] = useState('');
+  const [roomId, setRoomId] = useState('');
 
   const [error, setError] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
 
-  const handleNewRoomClick = () => {
-    validateUsername()
-      .then(valid => {
-        if (valid) {
-          router.push('/room/new');
-        }
-      })
-  }
-
   const handleJoinRoomClick = () => {
-    validateUsername()
+    validateRoomId()
       .then(valid => {
         if (valid) {
-          router.push('/room/join');
+          router.push(`/room/${ roomId }`);
         }
       })
   }
 
-  const validateUsername = () => {
+  const validateRoomId = () => {
     return new Promise((resolve, reject) => {
-      const value = username?.trim();
+      const value = roomId?.trim();
   
       let errorMessage = '';
       if (value === undefined || value === '') {
-        errorMessage = 'Username is a mandatory field.';
-      } else if (value.length <= 3) {
-        errorMessage = 'Username must be longer than 3 characters.';
+        errorMessage = 'Room Id is a mandatory field.';
       } else {
         setError(false);
         resolve(true);
@@ -58,16 +47,15 @@ export const HomeComponent = () => {
       </header>
       <main className="w-full">
         <div className="w-full flex flex-wrap justify-center">
-          <label className="w-full pb-2" htmlFor="username">Username:</label>
-          <input className={`px-2 py-1 text-black w-full border-2 border-solid ${ error ? 'border-red-600' : 'border-black '}`} type="text" id="username" name="username" placeholder="Jhonny98" value={username} onChange={(e) => setUsername(e.target.value)}></input>
+          <label className="w-full pb-2" htmlFor="room-id">Room Id:</label>
+          <input className={`px-2 py-1 text-black w-full border-2 border-solid ${ error ? 'border-red-600' : 'border-black '}`} type="text" id="room-id" name="room-id" placeholder="FAD313" value={roomId} onChange={(e) => setRoomId(e.target.value)}></input>
           {
             error && <span className="w-full mt-2 text-red-600">{errorMessage}</span>
           }
         </div>
       </main>
       <footer className="w-full content-end">
-        <Button label="Create new room" bgColor="bg-teal-500" clickHandler={handleNewRoomClick}></Button>
-        <Button label="Join room" bgColor="bg-teal-500" otherStyles={[ 'mt-4' ]} clickHandler={handleJoinRoomClick}></Button>
+        <Button label="Join room" bgColor="bg-teal-500" clickHandler={handleJoinRoomClick}></Button>
       </footer>
     </section>
   );
